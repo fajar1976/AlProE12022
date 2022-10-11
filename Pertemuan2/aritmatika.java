@@ -2,13 +2,15 @@ import java.util.Scanner;
 
     class aritmatika{
         public static void main(String[] args){
-            int x,y,hasil;
+
+            int x,y,hasil; //proses input dan output
 
             Scanner input = new Scanner(System.in);
-            System.out.print("Masukan nilai x : ");
-            x = input.nextInt();
-            System.out.print("Masukab nilai y : ");
-            y = input.nextInt();
+                System.out.print("Masukan nilai x : ");
+                x = input.nextInt();
+                
+                System.out.print("Masukab nilai y : ");
+                 y = input.nextInt();
 
                 //operasi penjumlahan
                 hasil = x + y ;
