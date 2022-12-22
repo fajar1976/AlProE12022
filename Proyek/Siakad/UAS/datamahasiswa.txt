@@ -1,0 +1,8 @@
+22123456711,Asep,Fakultas Teknik,Pendidikan Teknik Informatika
+22123456712,Endang,Fakultas Teknik,Pendidikan Teknik Elektronika
+22123456713,Naryo,Fakultas Teknik,Teknologi Informasi
+22123456714,akmal,Fakultas Bahasa dan Seni,Pendidikan Seni Rupa
+22123456716,Silvi,Fakultas Bahasa dan Seni,Pendidikan Seni Musik
+22123456717,Asep Balon,Fakultas Teknik,Teknik Manufaktur
+22123456718,Dadan Sunaryo,Fakultas Bahasa dan Seni,Pendidikan Bahasa Inggris
+22123456719,Silvia,Fakultas Teknik,Pendidikan Teknik Mesin

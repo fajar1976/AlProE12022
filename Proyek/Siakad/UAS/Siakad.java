@@ -1,6 +1,12 @@
-package Proyek.Siakad.Pertemuan6;
+package Proyek.Siakad.UAS;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 public class Siakad {
 
@@ -9,7 +15,7 @@ public class Siakad {
     static boolean lanjut = true;
 
     // Main Method
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         clearScreen();
 
         Scanner input = new Scanner(System.in);
@@ -53,10 +59,8 @@ public class Siakad {
     }
 
     // Menambah Data Mahasiswa
-    /**
-     * 
-     */
-    public static void tambahData() {
+
+    public static void tambahData() throws IOException {
         Scanner input = new Scanner(System.in);
 
         clearScreen();
@@ -78,6 +82,7 @@ public class Siakad {
 
     // ya atau tidak
     public static boolean yat(String pesan) {
+
         Scanner input = new Scanner(System.in);
         System.out.println("\n" + pesan + " (y/t) ");
         String pilih = input.next();
@@ -89,29 +94,57 @@ public class Siakad {
         return pilih.equalsIgnoreCase("y");
     }
 
-    // hapus layar
+    // bersihkan layar
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
     // Menampilkan Data Mahasiswa
-    public static void tampilData() {
-        clearScreen();
-        System.out.println("-----------------");
-        System.out.println("Berikut data Anda\n");
-        System.out.println("NIM|  NAMA  | PRODI\n");
-        int i = 0;
-        while (i < jumlahData) {
-            System.out.println(mahasiswa[i].getNim() + " | " +
-                    mahasiswa[i].getNama() + " | " +
-                    mahasiswa[i].getProdi());
-            i++;
+    public static void tampilData() throws IOException {
+
+        FileReader dataInput;
+        BufferedReader buffer;
+
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/Pertemuan6/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!");
+            return;
         }
+
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |");
+        System.out.println(
+                "------------------------------------------------------------------------------------------------------------------------");
+        String data = buffer.readLine();
+        int noData = 0;
+        while (data != null) {
+            noData++;
+
+            StringTokenizer st = new StringTokenizer(data, ",");
+            System.out.printf("|%2d ", noData);
+            System.out.printf("|\t%4s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.print("|\n");
+
+            data = buffer.readLine();
+        }
+        System.out.println(
+                "------------------------------------------------------------------------------------------------------------------------");
+
     }
 
     // Menu Pegurutan Data Mahasiswa
-    public static void urutkanData() {
+    public static void urutkanData() throws IOException {
         clearScreen();
         Scanner input = new Scanner(System.in);
 
@@ -241,7 +274,8 @@ public class Siakad {
         System.out.println("Data berhasil diurutkan");
     }
 
-    public static void cariData() {
+    public static void cariData() throws IOException {
+
         Scanner input = new Scanner(System.in);
         System.out.println("\nPILIH METODE PENCARIAN");
         System.out.println("1. Linear");
@@ -258,13 +292,66 @@ public class Siakad {
             default:
                 System.out.println("Silahkan pilih nomor yang ada!");
         }
+        lanjut = yat("Apakah anda ingin melanjutkan?");
     }
 
-    public static void cariLinear() {
+    public static void cariLinear() throws IOException {
 
+        // koneksi ke file
+        try {
+            File file = new File("Proyek/Siakad/Pertemuan6/datamahasiswa.txt");
+
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!");
+            return;
+        }
+        // keyword
+        Scanner input = new Scanner(System.in);
+        System.out.print("Masukan Nama Mahasiswa :");
+        String cariNama = input.nextLine();
+
+        String[] katakunci = cariNama.split("\\s+");
+
+        // cek data
+        cekData(katakunci);
     }
 
     public static void cariBinary() {
 
     }
+
+    // cek data
+    public static void cekData(String[] katakunci) throws IOException {
+        clearScreen();
+        FileReader file = new FileReader("Proyek/Siakad/Pertemuan6/datamahasiswa.txt");
+        BufferedReader buffer = new BufferedReader(file);
+        String data = buffer.readLine();
+        boolean tersedia;
+        int totalData = 0;
+        while (data != null) {
+            // cek kata kunci data
+            tersedia = true;
+            // System.out.println(data);
+            // System.out.println(Arrays.toString(katakunci));
+            for (String kata : katakunci) {
+                tersedia = tersedia && data.toLowerCase().contains(kata.toLowerCase());
+
+            }
+
+            // menampilkan hasil
+            if (tersedia) {
+                totalData++;
+                StringTokenizer st = new StringTokenizer(data, ",");
+                System.out.printf("|%2d ", totalData);
+                System.out.printf("|\t%4s ", st.nextToken());
+                System.out.printf("|\t%-18s ", st.nextToken());
+                System.out.printf("|\t%-30s ", st.nextToken());
+                System.out.printf("|\t%-30s ", st.nextToken());
+                System.out.print("|\n");
+            }
+
+            data = buffer.readLine();
+        }
+    }
+
 }
