@@ -6,5 +6,4 @@ silvi_22123456716,22123456716,Silvi,Fakultas Bahasa dan Seni,Pendidikan Seni Mus
 asepbalon_22123456717,22123456717,Asep Balon,Fakultas Teknik,Teknik Manufaktur,2022
 dadansunaryo_22123456718,22123456718,Dadan Sunaryo,Fakultas Bahasa dan Seni,Pendidikan Bahasa Inggris,2022
 silvia_22123456719,22123456719,Silvia,Fakultas Teknik,Pendidikan Teknik Mesin,2022
-fajarpahmipadilah_21520241013,21520241013,Fajar Pahmi Padilah,Fakultas Teknik,Pendidikan Teknik Informatika,2021
-
+udintok_123123,123123,udin tok,teknik,pti,2022

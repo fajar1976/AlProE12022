@@ -27,7 +27,10 @@ public class Siakad {
             System.out.println("2. Lihat Data");
             System.out.println("3. Urutkan Data");
             System.out.println("4. Pencarian Data");
-            System.out.println("5. Keluar");
+            System.out.println("5. Hapus Data");
+            System.out.println("6. Edit Data");
+            System.out.println("7. UAS");
+            System.out.println("8. Keluar");
             System.out.print("Pilih menu : ");
 
             String menu = input.next();
@@ -40,12 +43,21 @@ public class Siakad {
                     tampilData();
                     break;
                 case "3":
-                    // urutkanData();
+                    urutkanData();
                     break;
                 case "4":
                     cariData();
                     break;
                 case "5":
+                    hapusData();
+                    break;
+                case "6":
+                    editData();
+                    break;
+                case "7":
+                    editData();
+                    break;
+                case "8":
                     System.out.println("Terima kasih telah menggunakan aplikasi ini!");
                     System.exit(0);
                     break;
@@ -105,7 +117,7 @@ public class Siakad {
 
             if (lanjut) {
                 buffer.write(
-                        primaryKey + "," + nim + "," + nama + "," + fakultas + "," + prodi + "," + tahun + "\n");
+                        primaryKey + "," + nim + "," + nama + "," + fakultas + "," + prodi + "," + tahun);
                 buffer.newLine();
                 buffer.flush();
             }
@@ -120,11 +132,11 @@ public class Siakad {
     public static boolean yat(String pesan) {
 
         Scanner input = new Scanner(System.in);
-        System.out.println("\n" + pesan + " (y/t) ");
+        System.out.print("\n" + pesan + " (y/t) ");
         String pilih = input.next();
         while (!pilih.equalsIgnoreCase("y") && !pilih.equalsIgnoreCase("t")) {
             System.err.println("Pilihan tidak tersedia! ,pilih y atau t");
-            System.out.println(pesan + " (y/t) ");
+            System.out.print(pesan + " (y/t) ");
             pilih = input.next();
         }
         return pilih.equalsIgnoreCase("y");
@@ -168,7 +180,7 @@ public class Siakad {
             StringTokenizer st = new StringTokenizer(data, ",");
             System.out.printf("|%2d ", noData);
             st.nextToken();
-            System.out.printf("|\t%4s ", st.nextToken());
+            System.out.printf("|\t%-11s ", st.nextToken());
             System.out.printf("|\t%-18s ", st.nextToken());
             System.out.printf("|\t%-30s ", st.nextToken());
             System.out.printf("|\t%-30s ", st.nextToken());
@@ -183,136 +195,110 @@ public class Siakad {
     }
 
     // Menu Pegurutan Data Mahasiswa
-    // public static void urutkanData() throws IOException {
-    // clearScreen();
-    // Scanner input = new Scanner(System.in);
+    public static void urutkanData() throws IOException {
 
-    // System.out.println("PILIH METODE PENGURUTAN");
-    // System.out.println("1. Exchange Sort");
-    // System.out.println("2. Selection Sort");
-    // System.out.println("3. Quick Sort");
-    // System.out.println("4. Insertion Sort");
-    // System.out.println("5. Bubble Sort");
-    // System.out.println("6. Shell Sort");
-    // System.out.print("Pilih : ");
-    // int pilih = input.nextInt();
-    // switch (pilih) {
-    // case 1:
-    // exchangeSort();
-    // break;
-    // case 2:
-    // selectionSort();
-    // break;
-    // case 3:
-    // quickSort();
-    // break;
-    // case 4:
-    // insertionSort();
-    // break;
-    // case 5:
-    // bubbleSort();
-    // break;
-    // case 6:
-    // shellSort();
-    // break;
-    // default:
-    // System.err.println("\nPilihan tidak ada !\n Silahkan pilih nomor menu yang
-    // tersedia");
-    // }
+        Scanner input = new Scanner(System.in);
 
-    // }
+        System.out.println("PILIH METODE PENGURUTAN");
+        System.out.println("1. Exchange Sort");
+        System.out.println("2. Selection Sort");
+        System.out.println("3. Quick Sort");
+        System.out.println("4. Insertion Sort");
+        System.out.println("5. Bubble Sort");
+        System.out.println("6. Shell Sort");
+        System.out.print("Pilih : ");
+        int pilih = input.nextInt();
+        switch (pilih) {
+            case 1:
+                exchangeSort();
+                break;
+            case 2:
+                // selectionSort();
+                break;
+            case 3:
+                // quickSort();
+                break;
+            case 4:
+                // insertionSort();
+                break;
+            case 5:
+                // bubbleSort();
+                break;
+            case 6:
+                // shellSort();
+                break;
+            default:
+                System.err.println("\nPilihan tidak ada !\n Silahkan pilih nomor menu yang tersedia");
+        }
 
-    // // Exchange Sort
-    // public static void exchangeSort() {
-    // int i, j;
-    // mahasiwa temp;
-    // for (i = 0; i < jumlahData; i++) {
-    // for (j = i + 1; j < jumlahData; j++) {
-    // if (mahasiswa[i].getNim().compareTo(mahasiswa[j].getNim()) > 0) {
-    // temp = mahasiswa[i];
-    // mahasiswa[i] = mahasiswa[j];
-    // mahasiswa[j] = temp;
-    // }
-    // }
-    // }
-    // System.out.println("Data berhasil diurutkan");
-    // }
+    }
 
-    // // Selection Sort
-    // public static void selectionSort() {
-    // int i, j, min;
-    // mahasiwa temp;
-    // for (i = 0; i < jumlahData - 1; i++) {
-    // min = i;
-    // for (j = i + 1; j < jumlahData; j++) {
-    // if (mahasiswa[j].getNim().compareTo(mahasiswa[min].getNim()) < 0) {
-    // min = j;
-    // }
-    // }
-    // temp = mahasiswa[i];
-    // mahasiswa[i] = mahasiswa[min];
-    // mahasiswa[min] = temp;
-    // }
-    // System.out.println("Data berhasil diurutkan");
-    // }
+    // exchange sort
+    public static void exchangeSort() throws IOException {
 
-    // // Quick Sort
-    // public static void quickSort() {
-    // // quickSort(0, jumlahData - 1);
-    // // System.out.println("Data berhasil diurutkan");
-    // }
+        FileReader dataInput;
+        BufferedReader buffer;
 
-    // // Insertion Sort
-    // public static void insertionSort() {
-    // int i, j;
-    // mahasiwa temp;
-    // for (i = 1; i < jumlahData; i++) {
-    // temp = mahasiswa[i];
-    // j = i;
-    // while ((j > 0) && (mahasiswa[j - 1].getNim().compareTo(temp.getNim()) > 0)) {
-    // mahasiswa[j] = mahasiswa[j - 1];
-    // j--;
-    // }
-    // mahasiswa[j] = temp;
-    // }
-    // System.out.println("Data berhasil diurutkan");
-    // }
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/UAS/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
+            tambahData();
+            return;
+        }
 
-    // // Bubble Sort
-    // public static void bubbleSort() {
-    // int i, j;
-    // mahasiwa temp;
-    // for (i = 0; i < jumlahData - 1; i++) {
-    // for (j = 1; j < jumlahData - i; j++) {
-    // if (mahasiswa[j - 1].getNim().compareTo(mahasiswa[j].getNim()) > 0) {
-    // temp = mahasiswa[j - 1];
-    // mahasiswa[j - 1] = mahasiswa[j];
-    // mahasiswa[j] = temp;
-    // }
-    // }
-    // }
-    // System.out.println("Data berhasil diurutkan");
-    // }
+        String data = buffer.readLine();
+        String[] dataMahasiswa = new String[1000];
+        int i = 0;
+        while (data != null) {
+            dataMahasiswa[i] = data;
+            data = buffer.readLine();
+            i++;
+        }
 
-    // // Shell Sort
-    // public static void shellSort() {
-    // int i, j, k, l;
-    // mahasiwa temp;
-    // for (i = jumlahData / 2; i > 0; i = i / 2) {
-    // for (j = i; j < jumlahData; j++) {
-    // for (k = j - i; k >= 0; k = k - i) {
-    // if (mahasiswa[k + i].getNim().compareTo(mahasiswa[k].getNim()) >= 0) {
-    // break;
-    // } else {
-    // temp = mahasiswa[k];
-    // mahasiswa[k] = mahasiswa[k + i];
-    // mahasiswa[k + i] = temp;
-    // }
-    // }
-    // }
-    // }
-    // System.out.println("Data berhasil diurutkan");
-    // }
+        // sorting
+        for (int j = 0; j < i; j++) {
+            for (int k = j + 1; k < i; k++) {
+                StringTokenizer st1 = new StringTokenizer(dataMahasiswa[j], ",");
+                StringTokenizer st2 = new StringTokenizer(dataMahasiswa[k], ",");
+                st1.nextToken();
+                st2.nextToken();
+                String nim1 = st1.nextToken();
+                String nim2 = st2.nextToken();
+                if (nim1.compareTo(nim2) > 0) {
+                    String temp = dataMahasiswa[j];
+                    dataMahasiswa[j] = dataMahasiswa[k];
+                    dataMahasiswa[k] = temp;
+                }
+            }
+        }
+
+        // menampilkan data
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |\tTAHUN  |");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        for (int j = 0; j < i; j++) {
+            StringTokenizer st = new StringTokenizer(dataMahasiswa[j], ",");
+            System.out.printf("|%2d ", j + 1);
+            st.nextToken();
+            System.out.printf("|\t%-11s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-6s ", st.nextToken());
+            System.out.print("|\n");
+
+        }
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+    }
 
     public static void cariData() throws IOException {
 
@@ -339,7 +325,7 @@ public class Siakad {
 
         // koneksi ke file
         try {
-            File file = new File("Proyek/Siakad/Pertemuan6/datamahasiswa.txt");
+            File file = new File("Proyek/Siakad/UAS/datamahasiswa.txt");
 
         } catch (Exception e) {
             System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
@@ -398,7 +384,7 @@ public class Siakad {
                     StringTokenizer st = new StringTokenizer(data, ",");
                     System.out.printf("|%2d ", totalData);
                     st.nextToken();
-                    System.out.printf("|\t%4s ", st.nextToken());
+                    System.out.printf("|\t%-11s ", st.nextToken());
                     System.out.printf("|\t%-18s ", st.nextToken());
                     System.out.printf("|\t%-30s ", st.nextToken());
                     System.out.printf("|\t%-30s ", st.nextToken());
@@ -417,6 +403,198 @@ public class Siakad {
         }
 
         return tersedia;
+    }
+
+    // hapus data
+    public static void hapusData() throws IOException {
+        // penyimpanan utama
+        File datamahasiswa = new File("Proyek/Siakad/UAS/datamahasiswa.txt");
+        FileReader inputFile = new FileReader(datamahasiswa);
+        BufferedReader inputBuffer = new BufferedReader(inputFile);
+
+        // penyimpanan sementara
+        File dataTemp = new File("Proyek/Siakad/UAS/datamahasiswatemp.txt");
+        FileWriter outputFile = new FileWriter(dataTemp);
+        BufferedWriter outputBuffer = new BufferedWriter(outputFile);
+
+        // tampilkan data
+        System.out.println("Daftar Mahasiswa");
+        tampilData();
+
+        // input hapus data
+        Scanner input = new Scanner(System.in);
+        System.out.print("\nMasukan Nomor data yang akan dihapus : ");
+        int hapusNomor = input.nextInt();
+
+        // pengulangan baris data
+        int dataBaris = 0;
+        String data = inputBuffer.readLine();
+        boolean kosong = false; // jika data tidak ada
+
+        while (data != null) {
+            dataBaris++;
+            boolean hapus = false;
+
+            StringTokenizer st = new StringTokenizer(data, ",");
+            // tampilkan data yang akan dihapus
+            if (hapusNomor == dataBaris) {
+                System.out.println("\nBerikut data yang akan dihapus :");
+                System.out.println("----------------------------------");
+                System.out.println("Primary Key   : " + st.nextToken());
+                System.out.println("NIM           :" + st.nextToken());
+                System.out.println("Nama          :" + st.nextToken());
+                System.out.println("Fakultas      :" + st.nextToken());
+                System.out.println("Prodi         :" + st.nextToken());
+                System.out.println("Tahun         :" + st.nextToken());
+                hapus = yat("Apa anda yakin ingin menghapus data ini?");
+                kosong = true;
+            }
+            if (hapus) {
+                System.out.println("data berhasil dihapus");
+            } else {
+                outputBuffer.write(data);
+                outputBuffer.newLine();
+            }
+            data = inputBuffer.readLine();
+        }
+        // baris kosong
+        if (!kosong) {
+            System.err.println("Data tidak ditemukan");
+        }
+        // menulis data sementara
+        outputBuffer.flush();
+        inputFile.close();
+        inputBuffer.close();
+        outputFile.close();
+        outputBuffer.close();
+        // hapus data
+        System.gc();
+        datamahasiswa.delete();
+        // ganti nama file datamahasiswa
+        dataTemp.renameTo(datamahasiswa);
+
+    }
+
+    // update data
+    public static void editData() throws IOException {
+
+        // penyimpanan utama
+        File datamahasiswa = new File("Proyek/Siakad/UAS/datamahasiswa.txt");
+        FileReader inputFile = new FileReader(datamahasiswa);
+        BufferedReader inputBuffer = new BufferedReader(inputFile);
+
+        // penyimpanan sementara
+        File dataTemp = new File("Proyek/Siakad/UAS/datamahasiswatemp.txt");
+        FileWriter outputFile = new FileWriter(dataTemp);
+        BufferedWriter outputBuffer = new BufferedWriter(outputFile);
+
+        // tampilkan data
+        System.out.println("Daftar Mahasiswa");
+        tampilData();
+
+        // input edit data
+        Scanner input = new Scanner(System.in);
+        System.out.print("\nMasukan nomor data yang akan diedit : ");
+        int editNomor = input.nextInt();
+
+        // pengulangan baris data
+        int dataBaris = 0;
+        String data = inputBuffer.readLine();
+        boolean kosong = false; // jika data tidak ada
+
+        while (data != null) {
+            dataBaris++;
+
+            StringTokenizer st = new StringTokenizer(data, ",");
+            // tampilkan data yang akan diedit
+            if (editNomor == dataBaris) {
+                System.out.println("\nBerikut data yang akan diedit :");
+                System.out.println("----------------------------------");
+                System.out.println("Primary Key   : " + st.nextToken());
+                System.out.println("NIM           :" + st.nextToken());
+                System.out.println("Nama          :" + st.nextToken());
+                System.out.println("Fakultas      :" + st.nextToken());
+                System.out.println("Prodi         :" + st.nextToken());
+                System.out.println("Tahun         :" + st.nextToken());
+
+                // inputan user
+                String[] barisData = { "NIM", "Nama", "Fakultas", "Prodi", "Tahun" };
+                String[] tempData = new String[5];
+
+                // refresh
+                st = new StringTokenizer(data, ",");
+                String dataAsli = st.nextToken();
+
+                for (int i = 0; i < barisData.length; i++) {
+                    boolean edit = yat("Apa anda ingin merubah " + barisData[i] + " ?");
+                    dataAsli = st.nextToken();
+                    if (edit) {
+                        input = new Scanner(System.in);
+                        System.out.print("\nData lama (" + barisData[i] + ") Masukan yang baru : ");
+                        tempData[i] = input.nextLine();
+                    } else {
+                        tempData[i] = dataAsli;
+                    }
+                }
+
+                st = new StringTokenizer(data, ",");
+                System.out.println("\nBerikut data yang sudah diedit :");
+                System.out.println("----------------------------------");
+                st.nextToken();
+                System.out.println("NIM           :" + st.nextToken() + "->" + tempData[0]);
+                System.out.println("Nama          :" + st.nextToken() + "->" + tempData[1]);
+                System.out.println("Fakultas      :" + st.nextToken() + "->" + tempData[2]);
+                System.out.println("Prodi         :" + st.nextToken() + "->" + tempData[3]);
+                System.out.println("Tahun         :" + st.nextToken() + "->" + tempData[4]);
+
+                boolean edit = yat("Apa anda yakin ingin mengedit data ini?");
+                if (edit) {
+                    // cek data baru
+                    boolean tersedia = cekData(tempData, false);
+                    if (tersedia) {
+                        System.err.println("data sudah tersedia, edit dibatalkan");
+                        outputBuffer.write(data);
+                    } else {
+                        String nim = tempData[0];
+                        String nama = tempData[1];
+                        String fakultas = tempData[2];
+                        String prodi = tempData[3];
+                        String tahun = tempData[4];
+
+                        // buat primary key
+                        String primary = nama.replaceAll("\\s", "").toLowerCase();
+                        String primaryKey = primary + "_" + nim;
+
+                        outputBuffer.write(
+                                primaryKey + "," + nim + "," + nama + "," + fakultas + "," + prodi + "," + tahun);
+
+                    }
+
+                } else {
+                    // copas data
+                    outputBuffer.write(data);
+
+                }
+            } else {
+                // copas data
+                outputBuffer.write(data);
+
+            }
+            outputBuffer.newLine();
+            data = inputBuffer.readLine();
+        }
+
+        // menulis data sementara
+        outputBuffer.flush();
+        inputFile.close();
+        inputBuffer.close();
+        outputFile.close();
+        outputBuffer.close();
+        // hapus data
+        System.gc();
+        datamahasiswa.delete();
+        // ganti nama file datamahasiswa
+        dataTemp.renameTo(datamahasiswa);
     }
 
 }
