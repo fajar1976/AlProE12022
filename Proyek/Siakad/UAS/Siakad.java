@@ -55,7 +55,7 @@ public class Siakad {
                     editData();
                     break;
                 case "7":
-                    editData();
+                    UAS();
                     break;
                 case "8":
                     System.out.println("Terima kasih telah menggunakan aplikasi ini!");
@@ -213,19 +213,19 @@ public class Siakad {
                 exchangeSort();
                 break;
             case 2:
-                // selectionSort();
+                selectionSort();
                 break;
             case 3:
-                // quickSort();
+                quickSort();
                 break;
             case 4:
-                // insertionSort();
+                insertionSort();
                 break;
             case 5:
-                // bubbleSort();
+                bubbleSort();
                 break;
             case 6:
-                // shellSort();
+                shellSort();
                 break;
             default:
                 System.err.println("\nPilihan tidak ada !\n Silahkan pilih nomor menu yang tersedia");
@@ -300,6 +300,369 @@ public class Siakad {
                 "---------------------------------------------------------------------------------------------------------------------------------------");
     }
 
+    // selection sort
+    public static void selectionSort() throws IOException {
+
+        FileReader dataInput;
+        BufferedReader buffer;
+
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/UAS/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
+            tambahData();
+            return;
+        }
+
+        String data = buffer.readLine();
+        String[] dataMahasiswa = new String[1000];
+        int i = 0;
+        while (data != null) {
+            dataMahasiswa[i] = data;
+            data = buffer.readLine();
+            i++;
+        }
+
+        // sorting
+        for (int j = 0; j < i; j++) {
+            int min = j;
+            for (int k = j + 1; k < i; k++) {
+                StringTokenizer st1 = new StringTokenizer(dataMahasiswa[min], ",");
+                StringTokenizer st2 = new StringTokenizer(dataMahasiswa[k], ",");
+                st1.nextToken();
+                st2.nextToken();
+                String nim1 = st1.nextToken();
+                String nim2 = st2.nextToken();
+                if (nim1.compareTo(nim2) > 0) {
+                    min = k;
+                }
+            }
+            String temp = dataMahasiswa[j];
+            dataMahasiswa[j] = dataMahasiswa[min];
+            dataMahasiswa[min] = temp;
+        }
+
+        // menampilkan data
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |\tTAHUN  |");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        for (int j = 0; j < i; j++) {
+            StringTokenizer st = new StringTokenizer(dataMahasiswa[j], ",");
+            System.out.printf("|%2d ", j + 1);
+            st.nextToken();
+            System.out.printf("|\t%-11s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-6s ", st.nextToken());
+            System.out.print("|\n");
+        }
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+    }
+
+    // quick sort
+    public static void quickSort() throws IOException {
+
+        FileReader dataInput;
+        BufferedReader buffer;
+
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/UAS/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
+            tambahData();
+            return;
+        }
+
+        String data = buffer.readLine();
+        String[] dataMahasiswa = new String[1000];
+        int i = 0;
+        while (data != null) {
+            dataMahasiswa[i] = data;
+            data = buffer.readLine();
+            i++;
+        }
+
+        // sorting
+        quickSort(dataMahasiswa, 0, i - 1);
+
+        // menampilkan data
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |\tTAHUN  |");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        for (int j = 0; j < i; j++) {
+            StringTokenizer st = new StringTokenizer(dataMahasiswa[j], ",");
+            System.out.printf("|%2d ", j + 1);
+            st.nextToken();
+            System.out.printf("|\t%-11s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-6s ", st.nextToken());
+            System.out.print("|\n");
+        }
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+    }
+
+    public static void quickSort(String[] data, int kiri, int kanan) {
+        if (kiri < kanan) {
+            int posisi = partisi(data, kiri, kanan);
+            quickSort(data, kiri, posisi - 1);
+            quickSort(data, posisi + 1, kanan);
+        }
+    }
+
+    public static int partisi(String[] data, int kiri, int kanan) {
+        StringTokenizer st1 = new StringTokenizer(data[kiri], ",");
+        StringTokenizer st2 = new StringTokenizer(data[kanan], ",");
+        st1.nextToken();
+        st2.nextToken();
+        String pivot = st1.nextToken();
+        int i = kiri;
+        int j = kanan;
+        while (i < j) {
+            while (st1.nextToken().compareTo(pivot) <= 0 && i < kanan) {
+                i++;
+            }
+            while (st2.nextToken().compareTo(pivot) > 0) {
+                j--;
+            }
+            if (i < j) {
+                String temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
+            }
+        }
+        data[kiri] = data[j];
+        data[j] = pivot;
+        return j;
+    }
+
+    // insertion sort
+    public static void insertionSort() throws IOException {
+
+        FileReader dataInput;
+        BufferedReader buffer;
+
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/UAS/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
+            tambahData();
+            return;
+        }
+
+        String data = buffer.readLine();
+        String[] dataMahasiswa = new String[1000];
+        int i = 0;
+        while (data != null) {
+            dataMahasiswa[i] = data;
+            data = buffer.readLine();
+            i++;
+        }
+
+        // sorting
+        insertionSort(dataMahasiswa, i);
+
+        // menampilkan data
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |\tTAHUN  |");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        for (int j = 0; j < i; j++) {
+            StringTokenizer st = new StringTokenizer(dataMahasiswa[j], ",");
+            System.out.printf("|%2d ", j + 1);
+            st.nextToken();
+            System.out.printf("|\t%-11s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-6s ", st.nextToken());
+            System.out.print("|\n");
+        }
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+    }
+
+    public static void insertionSort(String[] data, int n) {
+        for (int i = 1; i < n; i++) {
+            StringTokenizer st1 = new StringTokenizer(data[i], ",");
+            StringTokenizer st2 = new StringTokenizer(data[i - 1], ",");
+            st1.nextToken();
+            st2.nextToken();
+            String temp = st1.nextToken();
+            int j = i - 1;
+            while (j >= 0 && st2.nextToken().compareTo(temp) > 0) {
+                data[j + 1] = data[j];
+                j--;
+            }
+            data[j + 1] = temp;
+        }
+    }
+
+    // bubble sort
+    public static void bubbleSort() throws IOException {
+
+        FileReader dataInput;
+        BufferedReader buffer;
+
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/UAS/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
+            tambahData();
+            return;
+        }
+
+        String data = buffer.readLine();
+        String[] dataMahasiswa = new String[1000];
+        int i = 0;
+        while (data != null) {
+            dataMahasiswa[i] = data;
+            data = buffer.readLine();
+            i++;
+        }
+
+        // sorting
+        bubbleSort(dataMahasiswa, i);
+
+        // menampilkan data
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |\tTAHUN  |");
+        System.out.println(
+
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        for (int j = 0; j < i; j++) {
+
+            StringTokenizer st = new StringTokenizer(dataMahasiswa[j], ",");
+            System.out.printf("|%2d ", j + 1);
+            st.nextToken();
+            System.out.printf("|\t%-11s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-6s ", st.nextToken());
+            System.out.print("|\n");
+        }
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+    }
+
+    public static void bubbleSort(String[] data, int n) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                StringTokenizer st1 = new StringTokenizer(data[j], ",");
+                StringTokenizer st2 = new StringTokenizer(data[j + 1], ",");
+                st1.nextToken();
+                st2.nextToken();
+                if (st1.nextToken().compareTo(st2.nextToken()) > 0) {
+                    String temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // shell sort
+    public static void shellSort() throws IOException {
+
+        FileReader dataInput;
+        BufferedReader buffer;
+
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/UAS/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
+            tambahData();
+            return;
+        }
+
+        String data = buffer.readLine();
+        String[] dataMahasiswa = new String[1000];
+        int i = 0;
+        while (data != null) {
+            dataMahasiswa[i] = data;
+            data = buffer.readLine();
+            i++;
+        }
+
+        // sorting
+        shellSort(dataMahasiswa, i);
+
+        // menampilkan data
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |\tTAHUN  |");
+        System.out.println(
+
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        for (int j = 0; j < i; j++) {
+
+            StringTokenizer st = new StringTokenizer(dataMahasiswa[j], ",");
+            System.out.printf("|%2d ", j + 1);
+            st.nextToken();
+            System.out.printf("|\t%-11s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-6s ", st.nextToken());
+            System.out.print("|\n");
+        }
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+    }
+
+    public static void shellSort(String[] data, int n) {
+        int jarak = n / 2;
+        while (jarak >= 1) {
+            for (int i = 0; i < n; i++) {
+                int j = i;
+                while (j >= jarak && data[j - jarak].compareTo(data[j]) > 0) {
+                    String temp = data[j];
+                    data[j] = data[j - jarak];
+                    data[j - jarak] = temp;
+                    j = j - jarak;
+                }
+            }
+            jarak = jarak / 2;
+        }
+    }
+
+    // pencarian data
     public static void cariData() throws IOException {
 
         Scanner input = new Scanner(System.in);
@@ -597,4 +960,47 @@ public class Siakad {
         dataTemp.renameTo(datamahasiswa);
     }
 
+    public static void UAS() throws IOException {
+        FileReader dataInput;
+        BufferedReader buffer;
+
+        // koneksi ke file
+        try {
+            dataInput = new FileReader("Proyek/Siakad/UAS/datamahasiswa.txt");
+            buffer = new BufferedReader(dataInput);
+        } catch (Exception e) {
+            System.err.println("Data tidak ditemukan!\nSilahkan tambah data dulu\n");
+            tambahData();
+            return;
+        }
+
+        System.out.println("-----------------");
+        System.out.println("Berikut data Siakad\n");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|NO |\tNIM         |\tNAMA               |\tFAKULTAS                       |\tPROGRAM STUDI                  |\tTAHUN  |");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+        String data = buffer.readLine();
+        int noData = 0;
+        while (data != null) {
+            noData++;
+
+            StringTokenizer st = new StringTokenizer(data, ",");
+            System.out.printf("|%2d ", noData);
+            st.nextToken();
+            System.out.printf("|\t%-11s ", st.nextToken());
+            System.out.printf("|\t%-18s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-30s ", st.nextToken());
+            System.out.printf("|\t%-6s ", st.nextToken());
+            System.out.print("|\n");
+
+            data = buffer.readLine();
+        }
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------------------------------------------");
+
+    }
 }

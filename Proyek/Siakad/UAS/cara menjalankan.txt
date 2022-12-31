@@ -1,0 +1,4 @@
+download github dalam bentuk zip dan extrak
+
+opsi kedua
+buat folder sesuai package program java (package Proyek.Siakad.UAS;)
